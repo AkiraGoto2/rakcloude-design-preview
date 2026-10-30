@@ -1,0 +1,2 @@
+document.querySelectorAll('[data-preview-form]').forEach(form=>form.addEventListener('submit',event=>{event.preventDefault();form.querySelector('.form-message').textContent='Макет: сохранение данных здесь не выполняется.'}));
+document.querySelectorAll('[data-preview-action]').forEach(button=>button.addEventListener('click',()=>{let note=document.querySelector('.preview-banner');note.textContent='Это просмотр дизайна. Для этого действия нужна подключённая логика рабочего кабинета.';note.style.color='#ff8a60'}));
