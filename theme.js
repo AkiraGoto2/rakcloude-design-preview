@@ -9,10 +9,10 @@
   root.style.setProperty('--violet',hex);
   root.style.setProperty('--logo-start',hex);
   root.style.setProperty('--logo-end','hsl('+((rgb[2]>rgb[0]?190:260))+' 95% 65%)');
-  try{localStorage.setItem('rakcloude-accent',hex)}catch{}
+
   document.querySelectorAll('[data-color]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.color===hex)));
  };
- let saved;try{saved=localStorage.getItem('rakcloude-accent')}catch{}
+ const saved='#8b5cf6';
  apply(saved||'#8b5cf6');
  let id=0;
  document.querySelectorAll('img').forEach(img=>{
@@ -26,9 +26,5 @@
   holder.setAttribute('role','img');holder.setAttribute('aria-label','RakCloude');
   img.replaceWith(holder);
  });
- const button=document.createElement('button');button.className='theme-trigger';button.type='button';button.setAttribute('aria-label','Цвет оформления');button.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="8"/><path d="M12 4a8 8 0 0 0 0 16Z" fill="currentColor"/></svg>';
- const dialog=document.createElement('dialog');dialog.className='theme-dialog';dialog.innerHTML='<div class="theme-heading"><h2>Цвет оформления</h2><button aria-label="Закрыть">×</button></div><p>Выбери акцент сайта и логотипа</p><div class="theme-colors">'+presets.map(([name,color])=>'<button data-color="'+color+'" style="--swatch:'+color+'" aria-label="'+name+'" aria-pressed="false"><i></i><span>'+name+'</span></button>').join('')+'</div><label class="custom-color">Свой цвет <input type="color" value="'+(saved||'#8b5cf6')+'" aria-label="Свой цвет оформления"></label>';
- document.body.append(button,dialog);button.onclick=()=>dialog.showModal();dialog.querySelector('.theme-heading button').onclick=()=>dialog.close();dialog.addEventListener('click',e=>{if(e.target===dialog)dialog.close()});
- dialog.querySelectorAll('[data-color]').forEach(b=>b.onclick=()=>{apply(b.dataset.color);dialog.querySelector('input').value=b.dataset.color});
- dialog.querySelector('input').oninput=e=>apply(e.target.value);apply(saved||'#8b5cf6');
+
 })();
