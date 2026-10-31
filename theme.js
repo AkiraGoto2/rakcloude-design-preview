@@ -18,6 +18,8 @@
  apply(saved);
  const map={background:'--bg',surface:'--panel',text:'--text',muted:'--muted',logoStart:'--logo-start',logoEnd:'--logo-end'};
  Object.entries(map).forEach(([key,css])=>{if(/^#[0-9a-f]{6}$/i.test(settings[key]||''))document.documentElement.style.setProperty(css,settings[key])});
+ const applySettings=()=>window.DesignSettings.apply(document,settings,location.pathname.split('/').pop()||'index.html');
+ if(window.DesignSettings)applySettings();else{const shared=document.createElement('script');shared.src='design-settings.js';shared.onload=applySettings;document.head.append(shared)}
  let id=0;
  document.querySelectorAll('img').forEach(img=>{
   const src=img.getAttribute('src')||'';
