@@ -12,8 +12,12 @@
 
   document.querySelectorAll('[data-color]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.color===hex)));
  };
- const saved='#8b5cf6';
- apply(saved||'#8b5cf6');
+ let settings={accent:'#8b5cf6'};
+ try{const d=new Date(),today=d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');const rows=JSON.parse(localStorage.getItem('rakcloude-design-themes')||'[]');const active=rows.filter(x=>x.from<=today&&(!x.until||x.until>=today)).sort((a,b)=>b.from.localeCompare(a.from)||b.id-a.id)[0];if(active)settings=active.settings}catch{}
+ const saved=/^#[0-9a-f]{6}$/i.test(settings.accent)?settings.accent:'#8b5cf6';
+ apply(saved);
+ const map={background:'--bg',surface:'--panel',text:'--text',muted:'--muted',logoStart:'--logo-start',logoEnd:'--logo-end'};
+ Object.entries(map).forEach(([key,css])=>{if(/^#[0-9a-f]{6}$/i.test(settings[key]||''))document.documentElement.style.setProperty(css,settings[key])});
  let id=0;
  document.querySelectorAll('img').forEach(img=>{
   const src=img.getAttribute('src')||'';
